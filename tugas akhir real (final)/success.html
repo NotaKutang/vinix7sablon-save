@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran Berhasil - Merchandise Custom</title>
+    <meta name="description" content="Pembayaran berhasil untuk pesanan merchandise custom Anda.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/logo.png" alt="Logo Toko" class="logo-img">
+                    <span class="logo-text"></span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="cek.html" class="nav-link">Cek Transaksi</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Success Section -->
+    <section class="success-section">
+        <div class="container">
+            <div class="success-content">
+                <div class="success-icon">✓</div>
+                <h1 class="success-title">Pembayaran Berhasil!</h1>
+                <p class="success-message">Terima kasih telah melakukan pembayaran. Mohon pantau chat WA anda, tim kami akan segera menghubungi.</p>
+                
+                <div id="invoiceDetails" class="invoice-details">
+                    <!-- Detail invoice akan ditampilkan di sini -->
+                </div>
+                
+                <div class="success-actions">
+                    <a href="index.html" class="success-btn">Kembali ke Beranda</a>
+                    <button id="printInvoice" class="success-btn secondary">Cetak Invoice</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Load Firebase Services -->
+    <script type="module">
+    import { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc 
+    } from './firebase.js';
+    
+    import firebaseService from './firebase-service.js';
+    
+    window.firebase = { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc 
+    };
+    window.firebaseService = firebaseService;
+    
+    console.log('✅ Success page Firebase services loaded');
+    </script>
+
+    <script src="script.js"></script>
+
+    <!-- Initialize Success Page dengan DOM Content Loaded -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('✅ Success page DOM loaded');
+        
+        // Tunggu sebentar untuk pastikan semua module loaded
+        setTimeout(() => {
+        console.log('🔄 Initializing success page invoice...');
+        
+        if (typeof displaySuccessInvoice !== 'undefined') {
+            console.log('✅ displaySuccessInvoice function found');
+            displaySuccessInvoice();
+        } else {
+            console.error('❌ displaySuccessInvoice function not found');
+            showFallbackInvoice();
+        }
+        }, 500);
+    });
+    
+    function showFallbackInvoice() {
+        const container = document.getElementById('invoiceDetails');
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('order');
+        
+        if (container && orderId) {
+        container.innerHTML = `
+            <div class="invoice-card">
+            <div class="invoice-header">
+                <div class="invoice-id-container">
+                <span class="invoice-id">${orderId}</span>
+                </div>
+                <div class="invoice-status status-selesai">Selesai</div>
+            </div>
+            <div style="text-align: center; padding: 2rem;">
+                <p>Memuat detail pesanan...</p>
+                <button onclick="location.reload()" class="success-btn">Refresh Halaman</button>
+            </div>
+            </div>
+        `;
+        }
+    }
+    </script>
+
+</body>
+</html>

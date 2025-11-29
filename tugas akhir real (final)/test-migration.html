@@ -1,0 +1,136 @@
+<!-- test-migration.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Migration</title>
+</head>
+<body>
+    <h1>🧪 Test Migration</h1>
+    <button onclick="testMigration()" id="testBtn">Test Small Migration</button>
+    <div id="result" style="font-family: monospace; white-space: pre; margin-top: 20px; padding: 10px; background: #f5f5f5;"></div>
+
+    <!-- Load migration module -->
+    <script type="module">
+        import dataMigration from './migration.js';
+        window.dataMigration = dataMigration;
+        console.log('✅ Migration module loaded');
+        
+        // Enable button setelah module loaded
+        document.getElementById('testBtn').disabled = false;
+    </script>
+
+    <script>
+        let migrationModuleLoaded = false;
+        
+        // Check if module is loaded
+        function checkMigrationModule() {
+            if (typeof window.dataMigration !== 'undefined') {
+                migrationModuleLoaded = true;
+                document.getElementById('testBtn').disabled = false;
+                document.getElementById('result').innerHTML = '✅ Migration module ready!\nClick "Test Small Migration" to start.';
+            } else {
+                setTimeout(checkMigrationModule, 500);
+            }
+        }
+        
+        // Start checking
+        checkMigrationModule();
+        
+        async function testMigration() {
+            if (!migrationModuleLoaded) {
+                alert('Migration module still loading...');
+                return;
+            }
+            
+            const resultEl = document.getElementById('result');
+            const testBtn = document.getElementById('testBtn');
+            
+            resultEl.innerHTML = '🧪 Starting migration test...\n\n';
+            testBtn.disabled = true;
+            testBtn.textContent = 'Testing...';
+            
+            try {
+                // Create test data in localStorage
+                const testData = [
+                    {
+                        id: 'TEST-MIG-001',
+                        product: 'Test Product',
+                        customerName: 'Test User 1',
+                        email: 'test1@example.com',
+                        phone: '0811111111',
+                        createdAt: new Date().toISOString(),
+                        status: 'Proses',
+                        size: 'L',
+                        color: 'Black',
+                        address: 'Test Address',
+                        province: 'Test Province',
+                        city: 'Test City',
+                        paymentMethod: 'BCA',
+                        downpaymentAmount: 20000
+                    },
+                    {
+                        id: 'TEST-MIG-002', 
+                        product: 'Test Product 2',
+                        customerName: 'Test User 2',
+                        email: 'test2@example.com',
+                        phone: '0822222222',
+                        createdAt: new Date().toISOString(),
+                        status: 'Selesai',
+                        size: 'M',
+                        color: 'White',
+                        address: 'Test Address 2',
+                        province: 'Test Province 2',
+                        city: 'Test City 2',
+                        paymentMethod: 'BRI',
+                        downpaymentAmount: 20000,
+                        buktiPembayaran: {
+                            reference: 'TEST-REF-001',
+                            confirmedAt: new Date().toISOString(),
+                            file: null
+                        }
+                    }
+                ];
+                
+                localStorage.setItem('merchcustom_orders', JSON.stringify(testData));
+                resultEl.innerHTML += '✅ Test data created in localStorage\n';
+                resultEl.innerHTML += `   - ${testData.length} test orders\n`;
+                
+                // Test migration
+                resultEl.innerHTML += '\n🔄 Migrating to Firebase...\n';
+                const result = await window.dataMigration.migrateAllOrders();
+                
+                resultEl.innerHTML += `\n📊 Migration Result:\n`;
+                resultEl.innerHTML += `   Total: ${result.stats.total}\n`;
+                resultEl.innerHTML += `   Success: ${result.stats.success}\n`;
+                resultEl.innerHTML += `   Failed: ${result.stats.failed}\n`;
+                resultEl.innerHTML += `   Overall: ${result.success ? '✅ SUCCESS' : '⚠️ WITH ERRORS'}\n\n`;
+                
+                // Show sample of log
+                if (result.log && result.log.length > 0) {
+                    resultEl.innerHTML += `📝 Sample Log:\n`;
+                    result.log.slice(0, 5).forEach(entry => {
+                        resultEl.innerHTML += `   ${entry}\n`;
+                    });
+                    if (result.log.length > 5) {
+                        resultEl.innerHTML += `   ... and ${result.log.length - 5} more entries\n`;
+                    }
+                }
+                
+                // Check Firebase data after migration
+                resultEl.innerHTML += '\n🔍 Checking Firebase data...\n';
+                const firebaseCheck = await window.dataMigration.checkFirebaseData();
+                resultEl.innerHTML += `   Firebase now has: ${firebaseCheck.count} orders\n`;
+                
+            } catch (error) {
+                resultEl.innerHTML += `\n❌ TEST FAILED:\n`;
+                resultEl.innerHTML += `   Error: ${error.message}\n`;
+                resultEl.innerHTML += `   Stack: ${error.stack}\n`;
+                console.error('Migration test error:', error);
+            } finally {
+                testBtn.disabled = false;
+                testBtn.textContent = 'Test Small Migration';
+            }
+        }
+    </script>
+</body>
+</html>
