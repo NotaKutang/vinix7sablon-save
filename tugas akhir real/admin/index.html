@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Merchandise Custom</title>
+    <meta name="description" content="Panel admin untuk mengelola pesanan merchandise custom.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Auth Check Script -->
+    <script>
+        // Check if user is authenticated
+        const LOGIN_STORAGE_KEY = 'merchcustom_admin_auth';
+        const isAuthenticated = sessionStorage.getItem(LOGIN_STORAGE_KEY) === 'true';
+
+        if (!isAuthenticated) {
+            console.log('❌ Not authenticated, redirecting to login...');
+            window.location.href = 'login.html';
+        } else {
+            console.log('✅ Authenticated, proceeding to admin...');
+        }
+
+        // Logout function
+        function logout() {
+            sessionStorage.removeItem(LOGIN_STORAGE_KEY);
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="../index.html">
+                    <img src="../assets/logo.png" alt="Logo Toko" class="logo-img">
+                    <span class="logo-text">SABLON - Admin</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="../index.html" class="nav-link">Kembali ke Beranda</a>
+                <a href="../cek.html" class="nav-link">Cek Transaksi</a>
+                <button onclick="logout()" class="nav-link" style="background: var(--danger-color); color: white; border: none;">
+                    Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Admin Section -->
+    <section class="admin-section">
+        <div class="container">
+            <h1 class="section-title">Panel Admin</h1>
+            <p class="section-subtitle">Kelola semua pesanan dari pelanggan</p>
+            
+            <!-- Statistik -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalOrders">0</div>
+                    <div class="stat-label">Total Pesanan</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="processingOrders">0</div>
+                    <div class="stat-label">Dalam Proses</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="completedOrders">0</div>
+                    <div class="stat-label">Selesai</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalRevenue">0</div>
+                    <div class="stat-label">Total Uang Muka</div>
+                </div>
+            </div>
+            
+            <!-- Filter dan Pencarian -->
+            <div class="admin-controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Cari berdasarkan nama, email, atau nomor faktur...">
+                    <button id="searchBtn">Cari</button>
+                </div>
+                <div class="filter-controls">
+                    <select id="statusFilter">
+                        <option value="">Semua Status</option>
+                        <option value="Proses">Proses</option>
+                        <option value="Selesai">Selesai</option>
+                    </select>
+                    <select id="productFilter">
+                        <option value="">Semua Produk</option>
+                        <option value="Kaos Custom">Kaos Custom</option>
+                        <option value="Tumblr Custom">Tumblr Custom</option>
+                        <option value="Jaket Custom">Jaket Custom</option>
+                        <option value="Tas Custom">Tas Custom</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Daftar Pesanan -->
+            <div id="ordersList" class="orders-list">
+                <div class="loading-state">
+                    <p>Memuat data pesanan...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Detail Pesanan -->
+    <div id="orderDetailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Detail Pesanan</h2>
+            <div id="orderDetailContent">
+                <!-- Detail pesanan akan ditampilkan di sini -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- DEBUG SCRIPT EXTENSIVE -->
+    <script>
+        console.log('🔍 ===== DEBUG ADMIN PANEL =====');
+        
+        // Cek localStorage
+        const storageKey = 'merchcustom_orders';
+        console.log('📦 Storage Key:', storageKey);
+        
+        const rawData = localStorage.getItem(storageKey);
+        console.log('📄 Raw Data from localStorage:', rawData);
+        
+        const orders = rawData ? JSON.parse(rawData) : [];
+        console.log('🛒 Parsed Orders:', orders);
+        console.log('📊 Total Orders:', orders.length);
+        
+        // Cek sample data
+        if (orders.length > 0) {
+            console.log('✅ Sample Order:', orders[0]);
+        } else {
+            console.log('❌ No orders found in localStorage');
+            
+            // Cek semua keys di localStorage
+            console.log('🗝️ All localStorage keys:', Object.keys(localStorage));
+            
+            // Cek jika ada data di key lama
+            const oldKeyData = localStorage.getItem('deepseek_merch_orders');
+            if (oldKeyData) {
+                console.log('🔄 Found data in old key, migrating...');
+                localStorage.setItem(storageKey, oldKeyData);
+                console.log('✅ Data migrated from old key');
+            }
+        }
+        
+        // Cek jika script.js berhasil load
+        setTimeout(() => {
+            console.log('⏰ Checking if OrderUtils is available...');
+            if (typeof OrderUtils !== 'undefined') {
+                console.log('✅ OrderUtils is available');
+                console.log('📦 Orders via OrderUtils:', OrderUtils.getOrders().length);
+            } else {
+                console.log('❌ OrderUtils is NOT available - script.js mungkin gagal load');
+            }
+        }, 1000);
+    </script>
+
+    <!-- Load Firebase -->
+    <script type="module">
+    import { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc,
+        query, orderBy, onSnapshot 
+    } from '../firebase.js';
+    
+    window.firebase = { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc,
+        query, orderBy, onSnapshot 
+    };
+    </script>
+
+    <!-- Load admin script -->
+    <script src="script.js"></script>
+
+    <!-- Final check -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏁 DOM Content Loaded');
+            
+            // Final verification
+            setTimeout(() => {
+                const ordersList = document.getElementById('ordersList');
+                if (ordersList) {
+                    console.log('📋 Orders List Element:', ordersList.innerHTML);
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
