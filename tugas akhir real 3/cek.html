@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Transaksi - Merchandise Custom</title>
+    <meta name="description" content="Cek status transaksi dan bukti pembayaran untuk pesanan merchandise custom Anda.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/logo.png" alt="Logo Toko" class="logo-img">
+                    <span class="logo-text"></span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cek Transaksi Section -->
+    <section class="cek-transaksi">
+        <div class="container">
+            <h1 class="section-title">Cek Status Transaksi</h1>
+            <p class="section-subtitle">Masukkan nomor faktur untuk melihat status pesanan Anda</p>
+            
+            <div class="search-form-container">
+                <form id="searchForm" class="search-form">
+                    <div class="form-group">
+                        <label for="invoiceNumber" class="form-label">Nomor Faktur:</label>
+                        <input type="text" id="invoiceNumber" class="form-input" placeholder="Contoh: INV-20231215-123456" required>
+                        <div class="error-message" id="invoiceError"></div>
+                    </div>
+                    <button type="submit" class="submit-btn">Cari Transaksi</button>
+                </form>
+            </div>
+            
+            <div id="transactionResult" class="transaction-result">
+                <!-- Hasil pencarian akan ditampilkan di sini -->
+            </div>
+
+            <!-- Tombol Kembali ke Beranda -->
+            <div class="back-to-home">
+                <a href="index.html" class="back-btn">Kembali ke Beranda</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Load Firebase -->
+    <script type="module">
+    import { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc 
+    } from './firebase.js';
+    
+    window.firebase = { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc 
+    };
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchandise Custom - Toko Online</title>
+    <meta name="description" content="Toko merchandise custom untuk kaos, tumblr, jaket, dan tas. Pesan dengan desain sesuai keinginan Anda.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/logo.png" alt="Logo Toko" class="logo-img">
+                <span class="logo-text">Sablon</span>
+            </div>
+            <div class="nav-menu">
+                <a href="cek.html" class="nav-link">Cek Transaksi</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Merchandise Custom Berkualitas</h1>
+            <p class="hero-subtitle">Kaos, Tumblr, Jaket, dan Tas dengan desain sesuai keinginan Anda</p>
+            <a href="#produk" class="cta-button">Lihat Produk</a>
+        </div>
+    </section>
+
+    <!-- Produk Section -->
+    <section id="produk" class="produk-section">
+        <div class="container">
+            <h2 class="section-title">Produk Kami</h2>
+            <div class="produk-grid">
+                <!-- Kaos Card -->
+                <div class="produk-card">
+                    <div class="produk-img-container">
+                        <img src="assets/kaos.jpg" alt="Kaos Custom" class="produk-img">
+                    </div>
+                    <div class="produk-info">
+                        <h3 class="produk-name">Kaos Custom</h3>
+                        <a href="product-kaos.html" class="produk-btn">Pesan Sekarang</a>
+                    </div>
+                </div>
+
+                <!-- Tumblr Card -->
+                <div class="produk-card">
+                    <div class="produk-img-container">
+                        <img src="assets/tumblr.png" alt="Tumblr Custom" class="produk-img">
+                    </div>
+                    <div class="produk-info">
+                        <h3 class="produk-name">Tumblr Custom</h3>
+                        <a href="product-tumblr.html" class="produk-btn">Pesan Sekarang</a>
+                    </div>
+                </div>
+
+                <!-- Jaket Card -->
+                <div class="produk-card">
+                    <div class="produk-img-container">
+                        <img src="assets/jaket.jpg" alt="Jaket Custom" class="produk-img">
+                    </div>
+                    <div class="produk-info">
+                        <h3 class="produk-name">Jaket Custom</h3>
+                        <a href="product-jaket.html" class="produk-btn">Pesan Sekarang</a>
+                    </div>
+                </div>
+
+                <!-- Tas Card -->
+                <div class="produk-card">
+                    <div class="produk-img-container">
+                        <img src="assets/tas.jpg" alt="Tas Custom" class="produk-img">
+                    </div>
+                    <div class="produk-info">
+                        <h3 class="produk-name">Tas Custom</h3>
+                        <a href="product-tas.html" class="produk-btn">Pesan Sekarang</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Testimoni Section -->
+    <section class="testimoni-section">
+        <div class="container">
+            <h2 class="section-title">Apa Kata Pelanggan Kami</h2>
+            <p class="section-subtitle">Testimoni dari pelanggan yang sudah merasakan kualitas produk kami</p>
+            
+            <div class="testimoni-grid">
+                <!-- Testimoni 1 -->
+                <div class="testimoni-card">
+                    <div class="testimoni-content">
+                        <div class="rating">
+                            ⭐⭐⭐⭐⭐
+                        </div>
+                        <p class="testimoni-text">
+                            "Kaos customnya bagus banget! Bahan nyaman dan hasil sablonnya rapi. Pengiriman cepat pula. Recommended!"
+                        </p>
+                    </div>
+                    <div class="testimoni-author">
+                        <div class="avatar">
+                            <img src="assets/avatar1.jpg" alt="Sarah Wijaya">
+                        </div>
+                        <div class="author-info">
+                            <h4 class="author-name">Sarah Wijaya</h4>
+                            <p class="author-desc">Pembeli Kaos Custom</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimoni 2 -->
+                <div class="testimoni-card">
+                    <div class="testimoni-content">
+                        <div class="rating">
+                            ⭐⭐⭐⭐⭐
+                        </div>
+                        <p class="testimoni-text">
+                            "Tumblrnya keren banget! Desain sesuai permintaan dan kualitasnya premium. Sudah pesan 3x dan selalu puas."
+                        </p>
+                    </div>
+                    <div class="testimoni-author">
+                        <div class="avatar">
+                            <img src="assets/avatar2.jpg" alt="Emily Hwang">
+                        </div>
+                        <div class="author-info">
+                            <h4 class="author-name">Emily Hwang</h4>
+                            <p class="author-desc">Pembeli Tumblr Custom</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimoni 3 -->
+                <div class="testimoni-card">
+                    <div class="testimoni-content">
+                        <div class="rating">
+                            ⭐⭐⭐⭐
+                        </div>
+                        <p class="testimoni-text">
+                            "Jaketnya tebal dan bahannya bagus. Desain yang saya minta persis seperti yang diharapkan. Pelayanannya ramah dan profesional."
+                        </p>
+                    </div>
+                    <div class="testimoni-author">
+                        <div class="avatar">
+                            <img src="assets/avatar3.jpg" alt="Rina Amelia">
+                        </div>
+                        <div class="author-info">
+                            <h4 class="author-name">Rina Amelia</h4>
+                            <p class="author-desc">Pembeli Jaket Custom</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-simple">
+                <div class="footer-info">
+                    <h3>VINIX7 Sablon</h3>
+                    <div class="contact-simple">
+                        <div class="contact-simple-item">
+                            <strong>Telepon:</strong> +62 812-3456-7890
+                        </div>
+                        <div class="contact-simple-item">
+                            <strong>Email:</strong> vinix7sablon@gmail.com
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-copyright">
+                    <p>&copy; 2023 MerchCustom. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Load Firebase -->
+    <script type="module">
+    import { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc 
+    } from './firebase.js';
+    
+    import firebaseService from './firebase-service.js';
+    
+    window.firebase = { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc 
+    };
+    window.firebaseService = firebaseService;
+    </script>
+    
+    <script src="script.js"></script>
+</body>
+</html>

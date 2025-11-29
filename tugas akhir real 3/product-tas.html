@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tas Custom - Merchandise Custom</title>
+    <meta name="description" content="Pesan tas custom dengan desain sesuai keinginan Anda. Berbagai ukuran dan warna tersedia.">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/logo.png" alt="Logo Toko" class="logo-img">
+                    <span class="logo-text"></span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="cek.html" class="nav-link">Cek Transaksi</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="product-detail-grid">
+                <div class="product-image">
+                    <img src="assets/tas.jpg" alt="Tas Custom" id="productImage">
+                </div>
+                <div class="product-info">
+                    <h1 class="product-title">Tas Custom</h1>
+                    <p class="product-description">Tas berkualitas tinggi dengan bahan kanvas yang kuat dan tahan lama. Dapat dicetak dengan desain sesuai keinginan Anda.</p>
+                    
+                    <!-- Form Pemesanan -->
+                    <form id="orderForm" class="order-form">
+                        <input type="hidden" id="productName" value="Tas Custom">
+                        
+                        <div class="form-group">
+                            <label for="size" class="form-label">Pilih Ukuran:</label>
+                            <div class="size-options">
+                                <label class="option-label">
+                                    <input type="radio" name="size" value="Kecil" required>
+                                    <span class="option-text">Kecil</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="radio" name="size" value="Sedang" required>
+                                    <span class="option-text">Sedang</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="radio" name="size" value="Besar" required>
+                                    <span class="option-text">Besar</span>
+                                </label>
+                            </div>
+                            <div class="error-message" id="sizeError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="color" class="form-label">Pilih Warna:</label>
+                            <div class="color-options">
+                                <label class="option-label">
+                                    <input type="radio" name="color" value="Hitam" required>
+                                    <span class="option-text">Hitam</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="radio" name="color" value="Putih" required>
+                                    <span class="option-text">Putih</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="radio" name="color" value="Abu-abu" required>
+                                    <span class="option-text">Abu-abu</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="radio" name="color" value="Navy" required>
+                                    <span class="option-text">Navy</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="radio" name="color" value="Hijau" required>
+                                    <span class="option-text">Hijau</span>
+                                </label>
+                            </div>
+                            <div class="error-message" id="colorError"></div>
+                        </div>
+                        
+                        <!-- Form fields lainnya sama seperti product-kaos.html -->
+                        <div class="form-group">
+                            <label for="customerName" class="form-label">Nama Pembeli:</label>
+                            <input type="text" id="customerName" class="form-input" required>
+                            <div class="error-message" id="nameError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address" class="form-label">Alamat Pengiriman:</label>
+                            <textarea id="address" class="form-textarea" rows="3" required></textarea>
+                            <div class="error-message" id="addressError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="province" class="form-label">Provinsi:</label>
+                            <select id="province" class="form-select" required>
+                                <option value="">Pilih Provinsi</option>
+                                <!-- Provinsi akan diisi oleh JavaScript -->
+                            </select>
+                            <div class="error-message" id="provinceError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city" class="form-label">Kota:</label>
+                            <input type="text" id="city" class="form-input" required>
+                            <div class="error-message" id="cityError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Nomor HP/WhatsApp:</label>
+                            <input type="tel" id="phone" class="form-input" required>
+                            <div class="error-message" id="phoneError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" id="email" class="form-input" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Metode Pembayaran:</label>
+                            <div class="payment-options">
+                                <label class="option-label">
+                                    <input type="radio" name="payment" value="BCA" required>
+                                    <span class="option-text">BCA</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="radio" name="payment" value="BNI" required>
+                                    <span class="option-text">BNI</span>
+                                </label>
+                                <label class="option-label">
+                                    <input type="radio" name="payment" value="BRI" required>
+                                    <span class="option-text">BRI</span>
+                                </label>
+                            </div>
+                            <div class="error-message" id="paymentError"></div>
+                        </div>
+                        
+                        <button type="submit" id="submitOrder" class="submit-btn" disabled>Pesan Sekarang</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Confirmation Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Konfirmasi Pembayaran</h2>
+            <div id="paymentInstructions">
+                <!-- Payment instructions will be inserted here -->
+            </div>
+            <div class="confirmation-form">
+                <h3>Konfirmasi Pembayaran Anda</h3>
+                <p>Silakan masukkan informasi pembayaran Anda:</p>
+                <div class="form-group">
+                    <label for="paymentReference" class="form-label">Nomor Referensi Transfer:</label>
+                    <input type="text" id="paymentReference" class="form-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="paymentProof" class="form-label">Bukti Transfer (Opsional):</label>
+                    <input type="file" id="paymentProof" class="form-input" accept="image/*">
+                </div>
+                <button id="confirmPayment" class="submit-btn">Konfirmasi Pembayaran</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Load Firebase -->
+    <script type="module">
+    import { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc 
+    } from './firebase.js';
+    
+    import firebaseService from './firebase-service.js';
+    
+    window.firebase = { 
+        db, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, getDoc 
+    };
+    window.firebaseService = firebaseService;
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
